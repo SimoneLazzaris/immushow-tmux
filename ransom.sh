@@ -7,3 +7,7 @@ echo -e "::> \033[31m$Q\033[0m"
 ./immuclient exec "$Q"
 sleep 0.5
 done
+TX=`./immuclient status |grep txID|cut -d : -f 2|tr -d ' \t'`
+echo "Current transaction $TX"
+GOOD=`cat /tmp/lastknown`
+echo "Last known good: $GOOD"
