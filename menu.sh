@@ -5,10 +5,10 @@ do
 exec 3>&1
 
 R=$(dialog  --no-cancel --no-tags --no-ok \
- --title immudb --menu "time travel demo" 20 50 20 \
- insert "initialize database" \
- ransom "simulate ransomware" \
- travel "time travel" \
+ --title "immudb by CodeNotary" --menu "time travel demo" 20 50 20 \
+ insert "Initialize database" \
+ ransom "Execute ransomware" \
+ travel "Time travel - recover from ransomware" \
  quit   "Exit program" \
  2>&1 1>&3)
 
