@@ -3,6 +3,11 @@
 rm -rf data
 
 session="immushow"
+tmux has-session -t $session 2>/dev/null
+
+if [ $? == 0 ]; then
+  tmux kill-session $session
+fi
 tmux new-session -d -s $session
 
 tmux selectp -t 0
@@ -23,10 +28,7 @@ tmux selectp -t 1 \; send-keys './immudb' C-m
 sleep 1
 tmux selectp -t 0
 tmux send-keys './menu.sh' C-m
-tmux selectp -t 2 \; send-keys 'sleep 3' C-m
-tmux selectp -t 2 \; send-keys './immuclient login immudb' C-m 'immudb' C-m
-tmux selectp -t 2 \; send-keys './immuclient use defaultdb' C-m
-tmux selectp -t 2 \; send-keys './immuclient exec create "table operations(id integer, op varchar, amount integer, primary key id)"' C-m
+tmux selectp -t 2 \; send-keys './init.sh' C-m
 tmux selectp -t 3 \; send-keys './watch.sh' C-m
 tmux selectp -t 0
 tmux attach-session -t $session

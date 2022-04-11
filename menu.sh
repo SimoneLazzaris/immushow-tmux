@@ -2,8 +2,18 @@
 
 while /bin/true
 do
-clear
-R=$(echo insert ransom travel quit|tr ' ' '\n'|smenu -c)
+exec 3>&1
+
+R=$(dialog  --no-cancel --no-tags --no-ok \
+ --title immudb --menu "time travel demo" 20 50 20 \
+ insert "initialize database" \
+ ransom "simulate ransomware" \
+ travel "time travel" \
+ quit   "Exit program" \
+ 2>&1 1>&3)
+
+exec 3>&-
+
 case $R in
 "insert")
   tmux selectp -t 2 \; send-keys './insert.sh' C-m 
@@ -15,8 +25,20 @@ case $R in
   tmux selectp -t 3 \; send-keys C-c './rewatch.sh' C-m 
   ;;
 "quit")
-  exit 0
+  pkill -9 immudb
+  tmux selectp -t 3 \; send-keys C-c   
+  tmux selectp -t 2 \; send-keys C-c   
+  tmux selectp -t 1 \; send-keys C-c   
+  tmux selectp -t 3 \; send-keys C-d  
+  tmux selectp -t 2 \; send-keys C-d  
+  tmux selectp -t 1 \; send-keys C-d  
+  tmux selectp -t 0 \; send-keys C-d  
+  tmux detach
+  tmux kill-session -t immushow
+  break
   ;;
 esac
 tmux selectp -t 0
 done
+clear
+
