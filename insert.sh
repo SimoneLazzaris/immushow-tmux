@@ -8,7 +8,7 @@ Q="insert into operations(id, op, amount) values($i, '$OP', $RANDOM)"
 echo -e "::> \033[32m$Q\033[0m"
 ./immuclient exec "$Q"
 TX=`./immuclient status |grep txID|cut -d : -f 2|tr -d ' \t'`
-echo Last known good transcation: $TX
+echo Last known good transaction: $TX
 sleep 0.5
 done
 echo $TX > /tmp/lastknown
