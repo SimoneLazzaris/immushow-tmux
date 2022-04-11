@@ -9,6 +9,7 @@ R=$(dialog  --no-cancel --no-tags --no-ok \
  insert "Initialize database" \
  ransom "Execute ransomware" \
  travel "Time travel - recover from ransomware" \
+ "" "" \
  quit   "Exit program" \
  2>&1 1>&3)
 
