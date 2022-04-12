@@ -12,6 +12,7 @@
 # limitations under the License.
 
 source env.sh
+SPEED=$1
 for i in `seq 0 10`
 do
 OPS=("CASH" "PAYPAL" "CREDITCARD" "DEBITCARD")
@@ -22,6 +23,9 @@ echo -e "::> \033[32m$Q\033[0m"
 $IMMUCLIENT exec "$Q"
 TX=`$IMMUCLIENT status |grep txID|cut -d : -f 2|tr -d ' \t'`
 echo Last known good transaction: $TX
+if [ "$SPEED" == "demo" ]
+then
 sleep 0.5
+fi
 done
 echo $TX > /tmp/lastknown

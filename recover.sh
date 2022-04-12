@@ -12,6 +12,7 @@
 # limitations under the License.
 
 source env.sh
+SPEED=$1
 $IMMUCLIENT query "select * from operations" before tx 14 \
   | sed 1,3d | tr -d ' ' \
   | while read LINE
@@ -27,5 +28,8 @@ AM=${FIELDS[3]}
 Q="upsert into operations(id, op, amount) values($ID, '$OP', $AM)"
 echo -e "::> \033[32m$Q\033[0m"
 $IMMUCLIENT exec "$Q"
+if [ $SPEED == "demo" ]
+then
 sleep 0.5
+fi
 done

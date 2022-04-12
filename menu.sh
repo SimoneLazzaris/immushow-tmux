@@ -11,17 +11,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+SPEED="demo"
 
 while [ 1 == 1 ]
 do
 exec 3>&1
 
 R=$(dialog  --no-cancel --no-tags --no-ok \
- --title "immudb by CodeNotary" --menu "time travel demo" 20 50 20 \
+ --title "immudb by CodeNotary" --menu "ransomware recovery demo" 20 50 20 \
  insert "Initialize database" \
  ransom "Execute ransomware" \
  travel "Time travel - recover from ransomware" \
  "" "" \
+ speed "Speed: $SPEED" \
  quit   "Exit program" \
  2>&1 1>&3)
 
@@ -29,13 +31,21 @@ exec 3>&-
 
 case $R in
 "insert")
-  tmux selectp -t 2 \; send-keys './insert.sh' C-m 
+  tmux selectp -t 2 \; send-keys "./insert.sh $SPEED" C-m 
   ;;
 "ransom")
-  tmux selectp -t 2 \; send-keys './ransom.sh' C-m 
+  tmux selectp -t 2 \; send-keys "./ransom.sh $SPEED" C-m 
   ;;
 "travel")
-  tmux selectp -t 2 \; send-keys './recover.sh' C-m 
+  tmux selectp -t 2 \; send-keys "./recover.sh $SPEED" C-m 
+  ;;
+"speed")
+  if [ "$SPEED" == "demo" ]
+  then
+  SPEED="realtime"
+  else
+  SPEED="demo"
+  fi
   ;;
 "quit")
   pkill -9 immudb

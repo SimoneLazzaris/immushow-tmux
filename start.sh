@@ -23,7 +23,7 @@ fi
 tmux new-session -d -s $session
 
 tmux selectp -t 0
-tmux splitw -h -p 65
+tmux splitw -h -p 70
 tmux splitw -v -p 50
 tmux selectp -t 0
 tmux splitw -v -p 50

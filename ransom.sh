@@ -12,13 +12,17 @@
 # limitations under the License.
 
 source env.sh
+SPEED=$1
 for i in `seq 0 10`
 do
 OP=`openssl rand -base64 12`
 Q="upsert into operations(id, op, amount) values($i, '$OP', 0)"
 echo -e "::> \033[31m$Q\033[0m"
 $IMMUCLIENT exec "$Q"
+if [ $SPEED == "demo" ]
+then
 sleep 0.5
+fi
 done
 TX=`$IMMUCLIENT status |grep txID|cut -d : -f 2|tr -d ' \t'`
 echo "Current transaction $TX"
