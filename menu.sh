@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while /bin/true
+while [ 1 == 1 ]
 do
 exec 3>&1
 
@@ -23,7 +23,7 @@ case $R in
   tmux selectp -t 2 \; send-keys './ransom.sh' C-m 
   ;;
 "travel")
-  tmux selectp -t 3 \; send-keys C-c './rewatch.sh' C-m 
+  tmux selectp -t 2 \; send-keys './recover.sh' C-m 
   ;;
 "quit")
   pkill -9 immudb

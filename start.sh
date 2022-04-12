@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source env.sh
 rm -rf data
 
 session="immushow"
@@ -24,7 +24,7 @@ tmux selectp -t 3 \; send-keys 'echo 3' C-m
 # 0 2
 # 1 3
 
-tmux selectp -t 1 \; send-keys './immudb' C-m
+tmux selectp -t 1 \; send-keys "$IMMUDB" C-m
 sleep 1
 tmux selectp -t 0
 tmux send-keys './menu.sh' C-m
