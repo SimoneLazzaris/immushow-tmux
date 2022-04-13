@@ -18,7 +18,7 @@ do
 OPS=("CASH" "PAYPAL" "CREDITCARD" "DEBITCARD")
 rand=$[ $RANDOM % 4 ]
 OP=${OPS[$rand]}
-Q="insert into operations(id, op, amount) values($i, '$OP', $RANDOM)"
+Q="upsert into operations(id, op, amount) values($i, '$OP', $RANDOM)"
 echo -e "::> \033[32m$Q\033[0m"
 $IMMUCLIENT exec "$Q"
 TX=`$IMMUCLIENT status |grep txID|cut -d : -f 2|tr -d ' \t'`
